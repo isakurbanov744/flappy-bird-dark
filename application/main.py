@@ -1,10 +1,7 @@
 import pygame
-import os
-import sys
-import time
-import math
-from bird import Bird
-from base import Base
+import sys, time, math, os
+from bird import *
+from base import *
 
 # global varaibles
 width = 288
@@ -33,13 +30,14 @@ def render_screen(bird, base):
 
 def main():
     pygame.init()
-    clock.tick(30)
 
     bird = Bird(bird_midflap, 100, 256)
     base = Base(base_surface, 460)
-
     run = True
+    space_on = False
+
     while run:
+        clock.tick(60)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -47,13 +45,16 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    pass
-
+                    space_on = True
+                    bird.move(space_on)
+                    space_on = False
 
         render_screen(bird, base)
-        base.move()
-        pygame.display.update()
 
+        bird.move(space_on)
+        base.move()
+
+        pygame.display.update()
 
 
 if __name__ == "__main__":
