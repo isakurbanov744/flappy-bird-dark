@@ -31,8 +31,11 @@ def render_screen(bird, base):
 def main():
     pygame.init()
 
+    # class instances
     bird = Bird(bird_midflap, 100, 256)
     base = Base(base_surface, 460)
+
+    # event variables
     run = True
     space_on = False
 
@@ -51,6 +54,11 @@ def main():
 
         render_screen(bird, base)
 
+        col_base = base.get_rect()
+        if bird.collision(col_base) == True:
+            print("yoo")
+
+        # game functions for objects
         bird.move(space_on)
         base.move()
 

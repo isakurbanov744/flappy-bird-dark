@@ -31,3 +31,6 @@ class Base:
 
         window.blit(self.base_img, (self.x1, self.y))
         window.blit(self.base_img, (self.x2, self.y))
+
+    def get_rect(self):
+        return self.base_rect
