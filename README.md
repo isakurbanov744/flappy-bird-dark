@@ -1,5 +1,5 @@
 # Flappy Bird Dark
-Dark version of Flappy Bird game made using Pygame in Python 3.x.x
+Dark version of Flappy Bird game made using Pygame in Python 3.8
 
 **Requirements**
 
