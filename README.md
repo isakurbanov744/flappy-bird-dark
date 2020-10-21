@@ -1,3 +1,4 @@
+[![Run on Repl.it](https://repl.it/badge/github.com/isakurbanov744/flappy-bird-dark)](https://repl.it/@isakurbanov/flappy-bird-dark)
 # Flappy Bird Dark
 Dark version of Flappy Bird game made using Pygame in Python 3.8
 
