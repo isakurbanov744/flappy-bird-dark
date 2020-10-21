@@ -43,4 +43,8 @@ class Bird:
         window.blit(self.bird_img, self.bird_rect)
 
     def collision(self, rect):
+        """
+            :param rect: bird rectangle
+            :return: True if bird rectangle collides
+        """
         return self.bird_rect.colliderect(rect)
