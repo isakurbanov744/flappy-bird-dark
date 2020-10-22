@@ -42,9 +42,17 @@ class Bird:
         """
         window.blit(self.bird_img, self.bird_rect)
 
-    def collision(self, rect):
+    def collision(self, base_rect, top_pipe_rect, bottom_pipe_rect):
         """
-            :param rect: bird rectangle
+            :param base_rect: base rectangle
             :return: True if bird rectangle collides
         """
-        return self.bird_rect.colliderect(rect)
+        if self.bird_rect.colliderect(base_rect):
+            return True
+        if self.bird_rect.colliderect(top_pipe_rect):
+            return True
+        if self.bird_rect.colliderect(bottom_pipe_rect):
+            return True
+        if self.bird_rect.centery > 510:
+            return True
+        return False

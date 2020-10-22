@@ -1,10 +1,13 @@
 import pygame
-import sys, time, math, os
+import sys
+import time
+import math
+import os
 from bird import *
 from base import *
 from pipe import *
 
-# global varaibles
+# global variables
 width = 288
 height = 512
 window = pygame.display.set_mode((width, height))
@@ -24,11 +27,40 @@ except Exception as e:
     print("Error parsing:", e)
 
 
+def collision_detection(bird, base, pipe):
+    """
+         gets renctangle of bottom and top pipes and of base images
+         sends the variables to collision method of Bird class
+         the method returns True if there has been a collision
+         and False if not
+        :param bird: Bird class instance
+        :param base: Base class instance
+        :param pipe: Pipe class instance
+        :var col_top_pipe: top pipe rectangle
+        :var col_bottom_pipe: bottom pipe rectangle
+        :return: None
+    """
+    col_top_pipe, col_bottom_pipe = pipe.get_rect()
+    col_base = base.get_rect()
+
+    if bird.collision(col_base, col_top_pipe, col_bottom_pipe):
+        if col_top_pipe:
+            pass
+
+
 def render_screen(bird, base, pipe, pipe_list):
+    """
+         renders all the surfaces to the screen
+        :param bird: Bird class instance
+        :param base: Base class instance
+        :param pipe: Pipe class instance
+        :param pipe_list: list of all pipes in the current game
+        :return: None
+    """
     window.blit(background, (0, 0))
     bird.draw(window)
-    base.draw(window)
     pipe.draw(window, pipe_list)
+    base.draw(window)
 
 
 def main():
@@ -47,7 +79,7 @@ def main():
     pygame.time.set_timer(spawn_pipe, 1200)
 
     while run:
-        clock.tick(60)
+        clock.tick(80)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -60,14 +92,15 @@ def main():
                     space_on = False
 
             if event.type == spawn_pipe:
-              pipe_list.extend(pipe.create())
-              # pipe_list.extend(Pipe.create_pipe(pipe_image, pipe_height))
+                pipe_list.extend(pipe.create())
+                render_screen(bird, base, pipe, pipe_list)
+                # pipe_list.extend(Pipe.create_pipe(pipe_image, pipe_height))
 
+        # display the screen
         render_screen(bird, base, pipe, pipe_list)
 
-        col_base = base.get_rect()
-        if bird.collision(col_base) == True:
-            pass
+        # collision detection
+        collision_detection(bird, base, pipe)
 
         # game functions for objects
         pipe.move(pipe_list)
@@ -75,6 +108,9 @@ def main():
         base.move()
 
         pygame.display.update()
+
+    # to clear all the pipes as soon as the game ends
+    pipe_list.clear()
 
 
 if __name__ == "__main__":
