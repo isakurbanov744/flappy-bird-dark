@@ -1,6 +1,6 @@
 import pygame
 import random
-
+from score import Score
 
 class Pipe:
 
