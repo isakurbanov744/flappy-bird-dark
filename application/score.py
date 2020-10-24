@@ -1,16 +1,18 @@
 import pygame
 
+score = 0
+
 
 class Score:
 
     def __init__(self, font, game_run):
         self.font = font
-        self.score = 0
+        self.score = score
         self.high_score = 0
         self.game_state = game_run
 
     def add_score(self):
-        self.score += 1
+        self.score += 0.01
 
     def display(self, window):
         if self.game_state:

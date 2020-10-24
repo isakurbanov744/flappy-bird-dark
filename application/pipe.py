@@ -1,6 +1,6 @@
 import pygame
 import random
-from score import Score
+
 
 class Pipe:
 
@@ -39,6 +39,7 @@ class Pipe:
         """
         for pipe in pipes:
             pipe.centerx -= 5
+
         return pipes
 
     def draw(self, window, pipes):

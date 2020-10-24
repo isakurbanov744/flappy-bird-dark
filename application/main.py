@@ -6,6 +6,7 @@ import os
 from bird import *
 from base import *
 from pipe import *
+from score import *
 
 # global variables
 pygame.init()
@@ -85,7 +86,7 @@ def main():
     pygame.time.set_timer(spawn_pipe, 1200)
 
     while run:
-        clock.tick(80)
+        clock.tick(90)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -98,10 +99,9 @@ def main():
                     bird.move(space_on)
                     space_on = False
 
-            if event.type == spawn_pipe and game_state:
+            if event.type == spawn_pipe:
                 pipe_list.extend(pipe.create())
-                render_screen(bird, base, pipe, pipe_list, score)
-                # pipe_list.extend(Pipe.create_pipe(pipe_image, pipe_height))
+
 
         # display the screen
         render_screen(bird, base, pipe, pipe_list, score)
