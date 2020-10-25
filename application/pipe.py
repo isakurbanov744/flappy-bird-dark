@@ -18,7 +18,7 @@ class Pipe:
         self.y = 0
         self.pipe_top_image = img
         self.pipe_bottom_image = pygame.transform.flip(img, False, True)
-        self.pipe_height = [225, 300, 350, 400]
+        self.pipe_height = [275, 300, 350]
         self.x = x_pos
         self.pipe_top_rect = self.pipe_top_image.get_rect()
         self.pipe_bottom_rect = self.pipe_bottom_image.get_rect()

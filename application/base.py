@@ -14,10 +14,11 @@ class Base:
         # self.x = x_pos
         self.y = y_pos
         self.base_img = img
-        self.base_rect = self.base_img.get_rect()
         self.width = self.base_img.get_width()
         self.x1 = 0
         self.x2 = self.width
+        self.base_rect = self.base_img.get_rect(center=(self.x1, self.y))
+        self.basex_pos = 0
 
     def move(self):
         """
@@ -25,13 +26,9 @@ class Base:
 
         :return: None
         """
-        self.x1 -= self.velocity
-        self.x2 -= self.velocity
-        if self.x1 + self.width < 0:
-            self.x1 = self.x2 + self.width
-
-        if self.x2 + self.width < 0:
-            self.x2 = self.x1 + self.width
+        self.basex_pos -= 1
+        if self.basex_pos <= -288:
+            self.basex_pos = 0
 
     def draw(self, window):
         """
@@ -39,13 +36,8 @@ class Base:
             :param window: main PyGame surface
             :return: None
         """
-        self.base_rect.centerx = self.x1
-        self.base_rect.centery = self.y
-        self.base_rect.centerx = self.x2
-        self.base_rect.centery = self.y
-
-        window.blit(self.base_img, (self.x1, self.y))
-        window.blit(self.base_img, (self.x2, self.y))
+        window.blit(self.base_img, (self.basex_pos, 410))
+        window.blit(self.base_img, (self.basex_pos + 288, 410))
 
     def get_rect(self):
         """
