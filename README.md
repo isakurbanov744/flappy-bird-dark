@@ -2,7 +2,7 @@
 # Flappy Bird Dark
 Dark version of Flappy Bird game made using Pygame in Python 3.8
 
-# ![Preview of the Image](preview/game-03.JPG)
+# ![Preview of the Image](images/game-04.JPG)
 
 **Requirements**
 
