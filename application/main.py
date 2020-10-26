@@ -7,6 +7,7 @@ from bird import *
 from base import *
 from pipe import *
 from score import *
+from cloud import *
 
 # global variables
 pygame.init()
@@ -25,10 +26,14 @@ try:
     bird_upflap = pygame.image.load("../src/sprites/bird-up-flap.png").convert_alpha()
     bird_midflap = pygame.image.load("../src/sprites/bird-mid-flap.png").convert_alpha()
     bird_downflap = pygame.image.load("../src/sprites/bird-down-flap.png").convert_alpha()
+    cloud_one = pygame.image.load("../src/sprites/cloud-1.png")
+    cloud_two = pygame.image.load("../src/sprites/cloud-2.png")
     base_surface = pygame.image.load("../src/sprites/base.png").convert()
     pipe_surface = pygame.image.load("../src/sprites/pipe.png").convert_alpha()
     main_font = pygame.font.Font("../src/fonts/04B_19.TTF", 30)
-
+    window_icon = pygame.image.load("../src/icons/favicon.ico").convert_alpha()
+    pygame.display.set_caption("Flappy Bird")
+    pygame.display.set_icon(window_icon)
 
 except Exception as e:
     print("Error parsing:", e)
@@ -36,6 +41,7 @@ except Exception as e:
 # game variables
 pipe_list = []
 bird_surface = [bird_upflap, bird_midflap, bird_downflap]
+cloud_surface = [cloud_one, cloud_two]
 
 
 def collision_detection(bird, base, pipes):
@@ -54,8 +60,10 @@ def collision_detection(bird, base, pipes):
     col_base = base.get_rect()
     bird_rect = bird.bird_rect
 
-    # if bird.collision(col_base, col_top_pipe, col_bottom_pipe):
     if bird.collision(col_base):
+        return False
+
+    if bird_rect.centery <= 0:
         return False
 
     for pipe in pipes:
@@ -65,7 +73,7 @@ def collision_detection(bird, base, pipes):
     return True
 
 
-def render_screen(bird, base, pipe, pipe_list, score):
+def render_screen(bird, base, pipe, pipe_list, score, cloud):
     """
          renders all the surfaces to the screen
         :param bird: Bird class instance
@@ -75,24 +83,26 @@ def render_screen(bird, base, pipe, pipe_list, score):
         :return: None
     """
     window.blit(background, (0, 0))
+    cloud.draw(window)
     bird.draw(window)
     pipe.draw(window, pipe_list)
     score.add_score()
-    score.display(window)
+    score.display(window, game_state)
     base.draw(window)
 
 
 def main():
     global game_state
+
     # class instances
     bird = Bird(100, 256, bird_surface)
     base = Base(base_surface, 460)
     pipe = Pipe(pipe_surface, 350)
     score = Score(main_font, game_state)
+    cloud = Cloud(cloud_surface, 350, 70)
 
     # event variables
     run = True
-    space_on = False
 
     pygame.time.set_timer(spawn_pipe, 1200)
 
@@ -101,6 +111,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                run = False
                 sys.exit()
 
             if event.type == pygame.KEYDOWN:
@@ -113,17 +124,17 @@ def main():
                     bird.reset()
                     score.reset()
 
-
             if event.type == spawn_pipe and game_state:
                 pipe_list.extend(pipe.create())
 
         # display the screen
-        render_screen(bird, base, pipe, pipe_list, score)
+        render_screen(bird, base, pipe, pipe_list, score, cloud)
 
         if game_state:
             pipe.move(pipe_list)
             bird.move()
             base.move()
+            cloud.move()
             game_state = collision_detection(bird, base, pipe_list)
 
         else:

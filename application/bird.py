@@ -42,7 +42,6 @@ class Bird:
 
     def collision(self, base_rect):
         """
-        top_pipe_rect, bottom_pipe_rect
             :param top_pipe_rect: top pipe rectangle object
             :param bottom_pipe_rect: bottom pipe rectangle object
             :param base_rect: base rectangle
@@ -54,6 +53,11 @@ class Bird:
         return False
 
     def animation(self):
+        """
+             this animates the bird
+            :var self.index: index position for the bird images
+            :return: PyGame surface
+        """
         self.index += 1
 
         if self.index > 2:

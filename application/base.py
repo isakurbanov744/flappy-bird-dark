@@ -2,7 +2,7 @@ import pygame
 
 
 class Base:
-    velocity = int(2)
+    velocity = 2
 
     def __init__(self, img, y_pos):
         """
@@ -11,7 +11,6 @@ class Base:
             :var self.base_rect: rectangle of the base image
             :var velocity: speed at which the base moves
         """
-        # self.x = x_pos
         self.y = y_pos
         self.base_img = img
         self.width = self.base_img.get_width()
@@ -22,11 +21,11 @@ class Base:
 
     def move(self):
         """
-         moves the base along the game screen
-
-        :return: None
+             moves the base along the game screen
+            :return: None
         """
         self.basex_pos -= 1
+
         if self.basex_pos <= -288:
             self.basex_pos = 0
 
