@@ -4,7 +4,7 @@ import random
 
 class Pipe:
 
-    def __init__(self, img, x_pos):
+    def __init__(self, img, x_pos, pipe_list, score_class, score_add):
         """
             :param img: pipe image
             :param x_pos: x position of the pipe on PyGame graph
@@ -22,6 +22,10 @@ class Pipe:
         self.x = x_pos
         self.pipe_top_rect = self.pipe_top_image.get_rect()
         self.pipe_bottom_rect = self.pipe_bottom_image.get_rect()
+        self.pipe_list = pipe_list
+        self.score_class = score_class
+        self.score_add = score_add
+        self._pipe_list = []
 
     def create(self):
         """
@@ -32,23 +36,27 @@ class Pipe:
         self.pipe_bottom_rect = self.pipe_bottom_image.get_rect(midtop=(350, self.y))
         return self.pipe_top_rect, self.pipe_bottom_rect
 
-    def move(self, pipes):
+    def move(self):
         """
-            :param pipes: list of all the pipes in the current game
+            :var self._pipe_list: list of pipes that are visible in the screen
+             this is to improve game performance
+            :var self.pipe_list: list of all the pipes in the current game
             :return: pipes moving to the left by 5 units
         """
-        for pipe in pipes:
+        for pipe in self.pipe_list:
             pipe.centerx -= 5
 
-        return pipes
+        self._pipe_list = [pipe for pipe in self.pipe_list if pipe.right > -50]
 
-    def draw(self, window, pipes):
+        return self._pipe_list
+
+    def draw(self, window):
         """
             :param window: display surface for PyGame
-            :param pipes: list of all the pipes in the current game
+            :param self.pipe_list: list of all the pipes in the current game
             :return: None
         """
-        for pipe in pipes:
+        for pipe in self.pipe_list:
             if pipe.bottom >= 512:
                 # if the position of the pipe is above 512
                 window.blit(self.pipe_top_image, pipe)
@@ -62,3 +70,13 @@ class Pipe:
             :return: rectangle of top and bottom pipe images
         """
         return self.pipe_top_rect, self.pipe_bottom_rect
+
+    def score(self):
+        if self.pipe_list:
+            for self.pipe in self.pipe_list:
+                if self.pipe.centerx == 100 and self.score_add:
+                    self.score_class.add_score()
+                    self.score_add = False
+
+                if self.pipe.centerx < 0:
+                    self.score_add = True

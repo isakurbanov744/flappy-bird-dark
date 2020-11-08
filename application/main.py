@@ -42,9 +42,10 @@ except Exception as e:
 pipe_list = []
 bird_surface = [bird_upflap, bird_midflap, bird_downflap]
 cloud_surface = [cloud_one, cloud_two]
+score_add = True
 
 
-def collision_detection(bird, base, pipes):
+def collision_detection(bird, base, pipes, score_add):
     """
          gets renctangle of bottom and top pipes and of base images
          sends the variables to collision method of Bird class
@@ -61,32 +62,34 @@ def collision_detection(bird, base, pipes):
     bird_rect = bird.bird_rect
 
     if bird.collision(col_base):
+        score_add = True
         return False
 
     if bird_rect.centery <= 0:
+        score_add = True
         return False
 
     for pipe in pipes:
         if bird_rect.colliderect(pipe):
+            score_add = True
             return False
 
     return True
 
 
-def render_screen(bird, base, pipe, pipe_list, score, cloud):
+def render_screen(bird, base, pipe, score, cloud):
     """
          renders all the surfaces to the screen
         :param bird: Bird class instance
         :param base: Base class instance
         :param pipe: Pipe class instance
-        :param pipe_list: list of all pipes in the current game
         :return: None
     """
     window.blit(background, (0, 0))
     cloud.draw(window)
     bird.draw(window)
-    pipe.draw(window, pipe_list)
-    score.add_score()
+    pipe.draw(window)
+    pipe.score()
     score.display(window, game_state)
     base.draw(window)
 
@@ -97,8 +100,8 @@ def main():
     # class instances
     bird = Bird(100, 256, bird_surface)
     base = Base(base_surface, 460)
-    pipe = Pipe(pipe_surface, 350)
     score = Score(main_font, game_state)
+    pipe = Pipe(pipe_surface, 350, pipe_list, score, score_add)
     cloud = Cloud(cloud_surface, 350, 70)
 
     # event variables
@@ -128,14 +131,14 @@ def main():
                 pipe_list.extend(pipe.create())
 
         # display the screen
-        render_screen(bird, base, pipe, pipe_list, score, cloud)
+        render_screen(bird, base, pipe, score, cloud)
 
         if game_state:
-            pipe.move(pipe_list)
+            pipe.move()
             bird.move()
             base.move()
             cloud.move()
-            game_state = collision_detection(bird, base, pipe_list)
+            game_state = collision_detection(bird, base, pipe_list, score_add)
 
         else:
             window.blit(game_over, game_over_rect)
