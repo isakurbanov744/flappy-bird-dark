@@ -2,7 +2,8 @@
 # Flappy Bird Dark
 Dark version of Flappy Bird game made using Pygame in Python 3.8
 
-# ![Preview of the Image](preview/game-03.JPG)
+![Preview of the Image](images/game-04.JPG)
+![Preview of the Image](images/game-03.JPG)
 
 **Requirements**
 
@@ -18,5 +19,8 @@ Dark version of Flappy Bird game made using Pygame in Python 3.8
 - Trello Link: https://trello.com/b/C8ToSVX6/flappy-bird-in-pygame
 - Pygame Library: https://www.pygame.org/news
 - Wikipedia: https://en.wikipedia.org/wiki/Flappy_Bird
+
+**Note: Game Sprites are allowed to be used and modified**
+
 
 **Note: To modify or use this project please kindly ask for permission by writing an email**
