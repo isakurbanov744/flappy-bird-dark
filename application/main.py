@@ -53,6 +53,7 @@ def collision_detection(bird, base, pipes, score_add, sound):
         :param bird: Bird class instance
         :param base: Base class instance
         :param pipe: Pipe class instance
+        :param score_add: bool
         :var col_top_pipe: top pipe rectangle
         :var col_bottom_pipe: bottom pipe rectangle
         :return: None
@@ -85,6 +86,8 @@ def render_screen(bird, base, pipe, score, cloud):
         :param bird: Bird class instance
         :param base: Base class instance
         :param pipe: Pipe class instance
+        :param score: Score class instance
+        :param cloud: Cloud class instance
         :return: None
     """
     window.blit(background, (0, 0))
@@ -109,7 +112,6 @@ def main():
 
     # event variables
     run = True
-
     pygame.time.set_timer(spawn_pipe, 1200)
 
     while run:

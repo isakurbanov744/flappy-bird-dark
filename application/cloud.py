@@ -12,11 +12,23 @@ class Cloud:
         """
         self.x = x_pos
         self.y = y_pos
+        self.x2 = 425
+        self.y2 = y_pos
         self.cloud_surface = cloud_surface
-        self.cloud_height = [70, 90, 50]
+        self.cloud_height = [70, 100, 20]
         self.cloud_img = self.cloud_surface[0]
         self.cloud_img_two = self.cloud_surface[1]
         self.cloud_rect = self.cloud_img.get_rect(midtop=(self.x, self.y))
+        self.pos = random.choice(self.cloud_height)
+
+    def position(self):
+        """
+             returns a random position for clouds
+            :return: random int number
+        """
+        self.pos = random.choice(self.cloud_height)
+
+        return self.pos
 
     def move(self):
         """
@@ -28,11 +40,23 @@ class Cloud:
         if self.x <= -288:
             self.x = 350
 
+        self.x2 -= 1
+        if self.x2 <= -325:
+            self.x2 = 425
+
     def draw(self, window):
         """
              draws clouds on the screen
             :param window: display surface for PyGame
             :return: None
         """
-        window.blit(self.cloud_img_two, (self.x + 100, self.y - 30))
+        # if the cloud is lost from the screen
+        # change the position
+        if self.x == -50:
+            self.y = self.position()
+
+        if self.x2 == -100:
+            self.y2 = self.position()
+
         window.blit(self.cloud_img, (self.x, self.y))
+        window.blit(self.cloud_img_two, (self.x2, self.y2))
