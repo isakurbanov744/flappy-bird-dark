@@ -47,7 +47,7 @@ score_add = True
 
 def collision_detection(bird, base, pipes, score_add):
     """
-         gets renctangle of bottom and top pipes and of base images
+         gets rectangle of bottom and top pipes and of base images
          sends the variables to collision method of Bird class
          the method returns True if there has been a collision
          and False if not

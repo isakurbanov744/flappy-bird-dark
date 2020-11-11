@@ -14,7 +14,6 @@ class Score:
         self.score = 0
         self.high_score = 0
         self.game_state = game_run
-        #self.pipe_list = pipe_list
 
     def add_score(self):
         """

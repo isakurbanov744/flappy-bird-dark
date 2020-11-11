@@ -19,6 +19,8 @@ class Bird:
         self.index = 0
         self.bird_img = self.bird_surface[self.index]
         self.bird_rect = self.bird_img.get_rect(center=(self.x, self.y))
+        self.bird_rot_img = None
+        self.rot_bird = None
 
     def reset(self):
         self.bird_rect.center = (100, 256)
@@ -30,20 +32,22 @@ class Bird:
             self.velocity = 0 resets the current speed to 0
             self.gravity is added to self.velocity
             y coordinate of rectangle of the object is moved up or down
-            :param space_on: Boolean value which is True
             :return: None
         """
         self.velocity += self.gravity
         self.bird_rect.centery += self.velocity
 
     def jump(self):
+        """
+             resets the bird velocity to prevent it from jumping to high
+             moves the bird up by 6 pixels
+            :return: None
+        """
         self.velocity = 0
         self.velocity -= 6
 
     def collision(self, base_rect):
         """
-            :param top_pipe_rect: top pipe rectangle object
-            :param bottom_pipe_rect: bottom pipe rectangle object
             :param base_rect: base rectangle
             :return: True if bird rectangle collides
         """
@@ -54,7 +58,7 @@ class Bird:
 
     def animation(self):
         """
-             this animates the bird
+             animates the bird wings
             :var self.index: index position for the bird images
             :return: PyGame surface
         """
@@ -65,10 +69,22 @@ class Bird:
 
         return self.bird_surface[self.index]
 
+    def rotate(self):
+        """
+             rotates the bird using rotozoom
+            :var self.rot_bird: rotated bird surface
+            :return:
+        """
+        self.rot_bird = pygame.transform.rotozoom(self.bird_surface[self.index], -self.velocity * 5, 1)
+
+        return self.rot_bird
+
     def draw(self, window):
         """
             :param window: main game surface
             :return: self.bird_img, self.bird_rect
         """
         self.bird_img = self.animation()
-        window.blit(self.bird_img, self.bird_rect)
+        self.bird_rot_img = self.rotate()
+
+        window.blit(self.bird_rot_img, self.bird_rect)
