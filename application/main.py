@@ -1,16 +1,15 @@
 import pygame
 import sys
-import time
-import math
-import os
 from bird import *
 from base import *
 from pipe import *
 from score import *
 from cloud import *
+from sound import *
 
 # global variables
 pygame.init()
+pygame.mixer.init()
 width = 288
 height = 512
 window = pygame.display.set_mode((width, height))
@@ -45,7 +44,7 @@ cloud_surface = [cloud_one, cloud_two]
 score_add = True
 
 
-def collision_detection(bird, base, pipes, score_add):
+def collision_detection(bird, base, pipes, score_add, sound):
     """
          gets rectangle of bottom and top pipes and of base images
          sends the variables to collision method of Bird class
@@ -63,15 +62,18 @@ def collision_detection(bird, base, pipes, score_add):
 
     if bird.collision(col_base):
         score_add = True
+        sound.death.play()
         return False
 
     if bird_rect.centery <= 0:
         score_add = True
+        sound.death.play()
         return False
 
     for pipe in pipes:
         if bird_rect.colliderect(pipe):
             score_add = True
+            sound.death.play()
             return False
 
     return True
@@ -103,6 +105,7 @@ def main():
     score = Score(main_font, game_state)
     pipe = Pipe(pipe_surface, 350, pipe_list, score, score_add)
     cloud = Cloud(cloud_surface, 350, 70)
+    sound = Sound()
 
     # event variables
     run = True
@@ -138,7 +141,7 @@ def main():
             bird.move()
             base.move()
             cloud.move()
-            game_state = collision_detection(bird, base, pipe_list, score_add)
+            game_state = collision_detection(bird, base, pipe_list, score_add, sound)
 
         else:
             window.blit(game_over, game_over_rect)

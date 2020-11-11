@@ -1,9 +1,11 @@
 import pygame
+from sound import Sound
 
 
 class Bird:
     velocity = 0
     gravity = 0.25
+    sound = Sound()
 
     def __init__(self, x_pos, y_pos, bird_surface):
         """
@@ -41,10 +43,14 @@ class Bird:
         """
              resets the bird velocity to prevent it from jumping to high
              moves the bird up by 6 pixels
+            :var self.sound.flap: flap sound file
             :return: None
         """
         self.velocity = 0
         self.velocity -= 6
+
+        # plays flap sound
+        self.sound.flap.play()
 
     def collision(self, base_rect):
         """

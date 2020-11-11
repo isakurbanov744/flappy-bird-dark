@@ -1,7 +1,10 @@
 import pygame
+from sound import *
 
 
 class Score:
+
+    sound = Sound()
 
     def __init__(self, font, game_run):
         """
@@ -23,6 +26,7 @@ class Score:
         """
         if self.game_state:
             self.score += 1
+            self.sound.score.play()
 
         self.update()
 
