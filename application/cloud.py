@@ -57,6 +57,6 @@ class Cloud:
 
         if self.x2 == -100:
             self.y2 = self.position()
-
+        
         window.blit(self.cloud_img, (self.x, self.y))
         window.blit(self.cloud_img_two, (self.x2, self.y2))

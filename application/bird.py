@@ -1,5 +1,6 @@
 import pygame
 from sound import Sound
+import random
 
 
 class Bird:
@@ -7,7 +8,7 @@ class Bird:
     gravity = 0.25
     sound = Sound()
 
-    def __init__(self, x_pos, y_pos, bird_surface):
+    def __init__(self, x_pos, y_pos, purple_bird_surface, yellow_bird_surface):
         """
             :param bird_surface: list of all bird images
             :param x_pos: x coordinate of the bird
@@ -15,11 +16,13 @@ class Bird:
         """
         self.x = x_pos
         self.y = y_pos
-        self.bird_surface = bird_surface
+        self.purple_bird_surface = purple_bird_surface
+        self.yellow_bird_surface = yellow_bird_surface
+        self.bird_surface = [self.purple_bird_surface, self.yellow_bird_surface]
         self.velocity = 0
         self.mass = 1
         self.index = 0
-        self.bird_img = self.bird_surface[self.index]
+        self.bird_img = self.purple_bird_surface[self.index]
         self.bird_rect = self.bird_img.get_rect(center=(self.x, self.y))
         self.bird_rot_img = None
         self.rot_bird = None
@@ -73,7 +76,7 @@ class Bird:
         if self.index > 2:
             self.index = 0
 
-        return self.bird_surface[self.index]
+        return self.purple_bird_surface[self.index]
 
     def rotate(self):
         """
@@ -81,9 +84,12 @@ class Bird:
             :var self.rot_bird: rotated bird surface
             :return:
         """
-        self.rot_bird = pygame.transform.rotozoom(self.bird_surface[self.index], -self.velocity * 5, 1)
+        self.rot_bird = pygame.transform.rotozoom(self.purple_bird_surface[self.index], -self.velocity * 5, 1)
 
         return self.rot_bird
+
+    def surface(self):
+        self.purple_bird_surface = random.choice(self.bird_surface)
 
     def draw(self, window):
         """
