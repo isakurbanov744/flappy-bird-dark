@@ -5,6 +5,12 @@ Dark version of Flappy Bird game made using Pygame in Python 3.8
 ![Preview of the Image](images/game-04.JPG)
 ![Preview of the Image](images/game-03.JPG)
 
+**Bird Skins**
+
+![First Bird](src/sprites/bird-mid-flap.png)
+![Second Bird](src/sprites/geen-bird-mid-flap.png)
+![Third Bird](src/sprites/yellow-bird-mid-flap.png)
+
 **Requirements**
 
 - PyGame
