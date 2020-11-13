@@ -1,5 +1,5 @@
 import pygame
-import sys, time
+import sys
 from bird import *
 from base import *
 from pipe import *

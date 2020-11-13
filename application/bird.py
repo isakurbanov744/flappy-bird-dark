@@ -29,6 +29,11 @@ class Bird:
         self.rot_bird = None
 
     def reset(self):
+        """
+             recenter the bird once it hits a surface
+             or when the game starts
+            :return: None
+        """
         self.bird_rect.center = (100, 256)
         self.velocity = 0
 
@@ -91,6 +96,11 @@ class Bird:
         return self.rot_bird
 
     def surface(self):
+        """
+             chooses a random bird surface list (color)
+             if the bird has hit a surface
+            :return: None
+        """
         self.purple_bird_surface = random.choice(self.bird_surface)
 
     def draw(self, window):
