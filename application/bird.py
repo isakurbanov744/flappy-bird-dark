@@ -8,7 +8,7 @@ class Bird:
     gravity = 0.25
     sound = Sound()
 
-    def __init__(self, x_pos, y_pos, purple_bird_surface, yellow_bird_surface):
+    def __init__(self, x_pos, y_pos, purple_bird_surface, yellow_bird_surface, green_bird_surface):
         """
             :param bird_surface: list of all bird images
             :param x_pos: x coordinate of the bird
@@ -18,7 +18,8 @@ class Bird:
         self.y = y_pos
         self.purple_bird_surface = purple_bird_surface
         self.yellow_bird_surface = yellow_bird_surface
-        self.bird_surface = [self.purple_bird_surface, self.yellow_bird_surface]
+        self.green_bird_surface = green_bird_surface
+        self.bird_surface = [self.purple_bird_surface, self.yellow_bird_surface, self.green_bird_surface]
         self.velocity = 0
         self.mass = 1
         self.index = 0
@@ -71,6 +72,7 @@ class Bird:
             :var self.index: index position for the bird images
             :return: PyGame surface
         """
+
         self.index += 1
 
         if self.index > 2:

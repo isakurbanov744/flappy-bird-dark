@@ -1,5 +1,5 @@
 import pygame
-import sys
+import sys, time
 from bird import *
 from base import *
 from pipe import *
@@ -28,6 +28,9 @@ try:
     yellow_bird_upflap = pygame.image.load("../src/sprites/yellow-bird-up-flap.png").convert_alpha()
     yellow_bird_midflap = pygame.image.load("../src/sprites/yellow-bird-mid-flap.png").convert_alpha()
     yellow_bird_downflap = pygame.image.load("../src/sprites/yellow-bird-down-flap.png").convert_alpha()
+    green_bird_upflap = pygame.image.load("../src/sprites/green-bird-up-flap.png").convert_alpha()
+    green_bird_midflap = pygame.image.load("../src/sprites/green-bird-mid-flap.png").convert_alpha()
+    green_bird_downflap = pygame.image.load("../src/sprites/green-bird-down-flap.png").convert_alpha()
     cloud_one = pygame.image.load("../src/sprites/cloud-1.png")
     cloud_two = pygame.image.load("../src/sprites/cloud-2.png")
     base_surface = pygame.image.load("../src/sprites/base.png").convert()
@@ -44,6 +47,7 @@ except Exception as e:
 pipe_list = []
 bird_surface = [bird_upflap, bird_midflap, bird_downflap]
 yellow_bird_surface = [yellow_bird_upflap, yellow_bird_midflap, yellow_bird_downflap]
+green_bird_surface = [green_bird_upflap, green_bird_midflap, green_bird_downflap]
 cloud_surface = [cloud_one, cloud_two]
 score_add = True
 
@@ -107,7 +111,7 @@ def main():
     global game_state
 
     # class instances
-    bird = Bird(100, 256, bird_surface, yellow_bird_surface)
+    bird = Bird(100, 256, bird_surface, yellow_bird_surface, green_bird_surface)
     base = Base(base_surface, 460)
     score = Score(main_font, game_state)
     pipe = Pipe(pipe_surface, 350, pipe_list, score, score_add)
